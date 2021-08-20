@@ -14,7 +14,7 @@ for t=1:length(file)
      par.shot=par.shot/acc;% retrospective undersampling
     
     % sampling trajectory
-    sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot], 8,2,2, 1,0));
+    sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot/acc],8,2,2,1,1));
     par.sample = permute(repmat(sample,[1,1,1,par.coil]),[1,2,4,3]);
     
     
