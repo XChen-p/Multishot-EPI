@@ -4,7 +4,7 @@ function im = ADMM(k_obj, x0, par)
 x = x0;
 
 z = Hankel(x, par.f, '2D');
-y = z*1;
+y = z*0;
 x0= x;
 Hx= z;
 g = z;
@@ -24,7 +24,7 @@ for i = 1:par.niter
     % Solve via singular value soft thresholding
     [u,s,v] =   svd(Hx - y, 'econ');
 %     s(s<par.lambda/par.rho)=0; % hard thresolding truncation
-%     s      =   diag(max(diag(s) - par.lambda/par.rho, 0)); % soft thresolding shrinkage
+     s      =   diag(max(diag(s) - par.lambda/par.rho, 0)); % soft thresolding shrinkage
 
     z=u*s*v';
     
