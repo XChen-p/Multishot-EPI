@@ -11,7 +11,7 @@ for t=1:length(file)
     load([filepath file(t).name])
     
     [par.kx,par.ky,par.coil,par.shot]=size(k_obj);
-    par.shot=par.ky/acc;
+     par.shot=par.ky/acc;% retrospective undersampling
     
     % sampling trajectory
     sample = squeeze(CAIPI_Sampling(1,[1,par.kx,par.ky,par.shot], 8,2,2, 1,0));
@@ -33,35 +33,35 @@ for t=1:length(file)
     imshow(abs(output1),[])
     img1(:,:,t)=output1;
 
-% structured low-rank recon
-par.coilcom=1;
+    % structured low-rank recon
+    par.coilcom=1;
 
 
-par.f       = 6;
-par.lambda  =6*1E-4;
-par.rho     = par.lambda*1E-1;
-par.niter   = 20;
-% rho adjustment parameter
-par.m = 1;%2;
-% over-relaxation parameter
-par.r = 1.5;%1.5;
+    par.f       = 6;
+    par.lambda  = 1E-4;
+    par.rho     = par.lambda*1E-2;
+    par.niter   = 10;
+    % rho adjustment parameter
+    par.m = 2;
+    % over-relaxation parameter
+    par.r = 1.5;
 
-% turn on or off printing cost function
-% printing cost function can slow things down
-par.verbose = 1;
+    % turn on or off printing cost function
+    % printing cost function can slow things down
+    par.verbose = 1;
 
-% Choose initialisation for x
+    % Choose initialisation for x
 
-x0 = repmat(sum(k_obj,4)./(sum(par.sample,4)+eps),[1,1,1,par.shot]);
-x0    = M_adj(x0,par);
-% solve ADMM
-output2 = ADMM(k_obj, x0, par);
-figure(2)
-imshow(abs(output2),[])
-img2(:,:,t)=output2;
+    x0 = repmat(sum(k_obj,4)./(sum(par.sample,4)+eps),[1,1,1,par.shot]);
+    x0    = M_adj(x0,par);
+    % solve ADMM
+    output2 = ADMM(k_obj, x0, par);
+    figure(2)
+    imshow(abs(output2),[])
+    img2(:,:,t)=output2;
 
 
-% end
+end
 
 
 function k_sc = M_adj(k_mc, par)
