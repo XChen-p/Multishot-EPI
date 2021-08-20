@@ -1,6 +1,5 @@
 function [H_ms] =Hankel(k_ms,r,dimension)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%   Hankel matrix construction
 
  % r: filter size
 
