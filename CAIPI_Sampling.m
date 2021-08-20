@@ -1,4 +1,4 @@
-function mask = CAIPI_Samplinggit(verbose,dims, width, slope, R, pf_y,pf_z)
+function mask = CAIPI_Sampling(verbose,dims, width, slope, R, pf_y,pf_z)
 %
 %   dims is [Nx, Ny, Nz, Nt]
 %   width is the extent of the "band" in kz for blipping
@@ -46,7 +46,7 @@ end
 
 
 %   initialise sampling mask
-mask    =   false(dims);
+% mask    =   false(dims);
 mask    =   zeros(dims);
 
 %   loop over time points (shots) and ky
