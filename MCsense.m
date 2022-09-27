@@ -10,7 +10,7 @@ para.sens=sense;
     
     para.y   =   reshape((1/2)*M_adj(k_obj,para),[],1);
     %pcg
-    [im,~]   =   pcg(@(x)cgfun(x, para), para.y, 1E-6, 100);
+    [im,~]   =   pcg(@(x)cgfun(x, para), para.y, 1E-6, 1000);
     im       =   abs(reshape(im, para.kx, para.ky));
      
     
