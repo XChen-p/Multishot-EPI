@@ -1,12 +1,11 @@
 
 % Main Script
 filepath ='/data/';
-% file = dir([filepath 'slice64_2_1_*.mat']);
-file = dir([filepath 'slice64_8_3_*.mat']);
-id=64;
+% file = dir([filepath 'slice64_2_1_*.mat']); % a 2D slice from the 3D dataset shown in Fig. 4, seg-CAIPI(2,1), R=2x2
+file = dir([filepath 'slice64_8_3_*.mat']); % a 2D slice from the 3D dataset shown in Fig. 4, seg-CAIPI(8,3), R=2x2
 
-load('data/sens_3D_R3xc218mm.mat')
-par.sens=squeeze(sens(id,:,:,:));
+load('data/slice64_sens.mat')
+par.sens=sens;
 
 acc=2;%prospective/retrospective R_3D
 for t=1:length(file)
