@@ -4,7 +4,7 @@ function im = ADMM(k_obj, x0, par)
 x = x0;
 
 z = Hankel(x, par.f, '2D');
-y = z*0;
+y = z*1;
 x0= x;
 Hx= z;
 g = z;
@@ -15,7 +15,7 @@ g = z;
 
 % Define shortcut functions for hankel and adjoint
 H_fwd   =   @(x)Hankel(x, par.f, '2D');
-H_adj   =   @(x)pinv_hankel(x, par.f, par.kx, par.ky, par.coilcom, par.shot).*par.N;
+H_adj   =   @(x)adj_hankel(x, par.f, par.kx, par.ky, par.coilcom, par.shot);
 
 for i = 1:par.niter
     
@@ -23,8 +23,8 @@ for i = 1:par.niter
     % argmin_z { lambda||z||_* + (rho/2)||z - H(x) + y||_2^2
     % Solve via singular value soft thresholding
     [u,s,v] =   svd(Hx - y, 'econ');
-%     s(s<par.lambda/par.rho)=0; % hard thresolding truncation
-     s      =   diag(max(diag(s) - par.lambda/par.rho, 0)); % soft thresolding shrinkage
+    s(s<par.lambda/par.rho)=0; % hard thresolding truncation
+%    s      =   diag(max(diag(s) - par.lambda/par.rho, 0)); % soft thresolding shrinkage
 
     z=u*s*v';
     
