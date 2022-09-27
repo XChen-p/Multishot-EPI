@@ -1,8 +1,6 @@
 function [k_obj,par] = gen_obj(t,shot,noise_level)
 load('ww_1_5.mat')
 load('obj_1_5.mat')
-load('sens_1_5.mat')
-par.sens=sens; 
 
 ww=ww(:,(t-1)*shot+1:t*shot);
  
