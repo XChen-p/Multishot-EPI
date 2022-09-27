@@ -1,4 +1,4 @@
-function [k_obj,par] = gen_obj(t,shot,noise_level)
+function [k_obj] = gen_obj(t,shot,noise_level)
 load('ww_1_5.mat')
 load('obj_1_5.mat')
 
