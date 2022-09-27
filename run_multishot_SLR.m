@@ -1,10 +1,12 @@
 
 % Main Script
-filepath ='/Users/xchen/Documents/MATLAB/Ox/20200224/d_kobj_18mm_8_2_Rz1/';
-file = dir([filepath 'd_kobj_18mm_8_2_Rz1*.mat']);
+filepath ='/data/';
+% file = dir([filepath 'slice64_2_1_*.mat']);
+file = dir([filepath 'slice64_8_3_*.mat']);
+id=64;
 
-load('sens_d_18mm_espiritNew_r96t3c6.mat')
-par.sens=sens;
+load('data/sens_3D_R3xc218mm.mat')
+par.sens=squeeze(sens(id,:,:,:));
 
 acc=2;%prospective/retrospective R_3D
 for t=1:length(file)
@@ -14,7 +16,7 @@ for t=1:length(file)
      par.shot=par.shot/acc;% retrospective undersampling
     
     % sampling trajectory
-    sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot/acc],8,2,2,1,1));
+    sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot/acc],8,3,2,1,1));
     par.sample = permute(repmat(sample,[1,1,1,par.coil]),[1,2,4,3]);
     
     
@@ -38,13 +40,13 @@ for t=1:length(file)
 
 
     par.f       = 6;
-    par.lambda  = 1E-4;
+    par.lambda  = 3E-4;
     par.rho     = par.lambda*1E-2;
     par.niter   = 10;
     % rho adjustment parameter
     par.m = 2;
     % over-relaxation parameter
-    par.r = 1.5;
+    par.r = 1;%1.5;
 
     % turn on or off printing cost function
     % printing cost function can slow things down
