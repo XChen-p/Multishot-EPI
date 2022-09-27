@@ -1,18 +1,22 @@
 
 % Main Script
+
+ 
 filepath ='/data/';
 % file = dir([filepath 'slice64_2_1_*.mat']); % a 2D slice from the 3D dataset shown in Fig. 4, seg-CAIPI(2,1), R=2x2
 file = dir([filepath 'slice64_8_3_*.mat']); % a 2D slice from the 3D dataset shown in Fig. 4, seg-CAIPI(8,3), R=2x2
 
 load('data/slice64_sens.mat')
+% load('sens_1_5.mat')% coil sensitivity for simulation data 
 par.sens=sens;
 
 acc=2;%prospective/retrospective R_3D
 for t=1:length(file)
-    load([filepath file(t).name])
-    
+    load([filepath file(t).name])% in vivo   
+       %     [k_obj] = gen_obj(t,48,3E-6); % generate the simulation data
     [par.kx,par.ky,par.coil,par.shot]=size(k_obj);
-     par.shot=par.shot/acc;% retrospective undersampling
+    
+ 
     
     % sampling trajectory
     sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot/acc],8,3,2,1,1));
