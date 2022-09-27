@@ -16,12 +16,9 @@ for t=1:length(file)
        %     [k_obj] = gen_obj(t,48,3E-6); % generate the simulation data
     [par.kx,par.ky,par.coil,par.shot]=size(k_obj);
     
- 
-    
     % sampling trajectory
     sample = squeeze(CAIPI_Sampling(0,[1,par.kx,par.ky,par.shot/acc],8,3,2,1,1));
     par.sample = permute(repmat(sample,[1,1,1,par.coil]),[1,2,4,3]);
-    
     
     % retrospective undersampling
     k_obj=k_obj(:,:,:,1:par.shot);
