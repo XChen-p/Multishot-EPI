@@ -1,4 +1,4 @@
-# Muitishot-EPI
+# Multishot-EPI
 This project uses structured low-rank reconstruction for 3D multi-shot EPI
 
 run_multishot_SLR.m is the main function
